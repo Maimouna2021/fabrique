@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('location');
-            $table->integer('nomCohorte');
+            $table->integer('nombreCohorte');
             $table->boolean('ouverte');
             $table->timestamps();
         });
