@@ -29,7 +29,6 @@ class FabriqueController extends Controller
     {
         //
         return view('create');
-
     }
 
     /**
@@ -41,13 +40,10 @@ class FabriqueController extends Controller
     public function store(Request $request)
     {
         //
-        $validatedData = $request->validate([
-            'nom' => 'required|max:255',
-            'location' => 'required|max:255',
-            'nombreCohorte' => 'required',
-            'ouverte' => 'required',
-        ]);
 
+        $input = $request->all();
+        fabrique::create($input);
+        return redirect('fabriques.index')->with('flash_message', 'C est top maimouna t as ajouté la formation');
     }
 
     /**
@@ -70,10 +66,10 @@ class FabriqueController extends Controller
     public function edit($id)
     {
         //
-        
-    $fabrique = Fabrique::findOrFail($id);
 
-    return view('edit', compact('fabrique'));
+        $fabrique = Fabrique::findOrFail($id);
+
+        return view('edit', compact('fabrique'));
     }
 
     /**
@@ -92,9 +88,9 @@ class FabriqueController extends Controller
             'nombreCohorte' => 'required',
             'ouverte' => 'required',
         ]);
-    
+
         Fabrique::whereId($id)->update($validatedData);
-    
+
         return redirect('/fabriques')->with('success', 'Fabrique inserer avec succèss');
     }
 
@@ -108,9 +104,8 @@ class FabriqueController extends Controller
     {
         //
         $fabrique = Fabrique::findOrFail($id);
-        $fabique->delete();
-    
+        fabrique::delete();
+
         return redirect('/fabriques')->with('success', 'Fabrique supprimer avec succèss');
-       
     }
 }
